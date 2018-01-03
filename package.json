@@ -1,15 +1,39 @@
 {
-  "name": "koa2",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "koa-generator",
+  "version": "1.1.16",
+  "description": "fullstack koa generator for koa 1.x and 2.x",
+  "main": "bin/koa",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm publish .",
+    "test": "mocha --reporter spec --bail --check-leaks test/",
+    "test-ci": "mocha --reporter spec --check-leaks test/"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "preferGlobal": true,
+  "bin": {
+    "koa": "./bin/koa",
+    "koa2": "./bin/koa2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/17koa/koa-generator.git"
+  },
+  "author": "i5ting",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/17koa/koa-generator/issues"
+  },
+  "homepage": "https://github.com/17koa/koa-generator#readme",
   "dependencies": {
-    "koa": "^2.4.1"
+    "commander": "2.7.1",
+    "mkdirp": "0.5.1",
+    "sorted-object": "1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "2.2.5",
+    "rimraf": "~2.2.8",
+    "supertest": "1.0.1"
+  },
+  "engines": {
+    "node": ">= 4.0"
   }
 }

@@ -1,5 +1,8 @@
 'use strict'
-
+var config = require('./config')
+var Wechat = require('./wechat/wechat')
+var path = require('path')
+var wechatApi = new Wechat(config.wechat)
 
 exports.reply = function* (next) {
     var message = this.weixin
@@ -179,7 +182,8 @@ exports.reply = function* (next) {
             }]
         }
         else if (content === '5') {
-            var data = yield wechatApi.uploadMaterial('image', path.join(__dirname, '../2.jpg'))
+
+            var data = yield wechatApi.uploadMaterial('image', path.join(__dirname, './2.jpg'))
 
             reply = {
                 type: 'image',
@@ -188,7 +192,7 @@ exports.reply = function* (next) {
             console.log(reply)
         }
         else if (content === '6') {
-            var data = yield wechatApi.uploadMaterial('video', path.join(__dirname, '../6.mp4'))
+            var data = yield wechatApi.uploadMaterial('video', path.join(__dirname, './6.mp4'))
             reply = {
                 type: 'video',
                 title: '回复视频内容',

@@ -1,11 +1,17 @@
 'use strict'
 
 var Promise = require("bluebird");
+var _ = require('lodash')
 var util = require("./util");
+var fs = require("fs");
 var request = Promise.promisify(require('request'))
 var prefix = 'https://api.weixin.qq.com/cgi-bin/'
 var api ={
-    accessToken:prefix+'token?grant_type=client_credential'
+    accessToken:prefix+'token?grant_type=client_credential',
+    temporary: {
+        upload: prefix + 'media/upload?',
+        fetch: prefix + 'media/get?'
+    },
 }
 
 function Wechat(options) {
@@ -22,7 +28,12 @@ function Wechat(options) {
 Wechat.prototype.fetchAccessToken = function() {
     var that = this
 
-     return this.getAccessToken()
+    if(this.access_token && this.expires_in){
+        if (this.isValidAccessToken(this)){
+            return Promise.resolve(this)
+        }
+    }
+      this.getAccessToken()
         .then(function(data){ //获取票据信息
             try{
                 data =JSON.parse(data)
@@ -44,6 +55,8 @@ Wechat.prototype.fetchAccessToken = function() {
             that.access_token = data.access_token
             that.expires_in = data.expires_in
             that.saveAccessToken(data)
+
+            return Promise.resolve(data)
         })
 }
 
@@ -82,6 +95,74 @@ Wechat.prototype.updateAccessToken = function(){
     })
 
 
+}
+
+Wechat.prototype.uploadMaterial = function(type, material, permanent) {
+    var that = this
+    var form = {}
+    var uploadUrl = api.temporary.upload
+    console.log("type",type)
+
+    if (permanent) {
+        uploadUrl = api.permanent.upload
+
+        _.extend(form, permanent)
+    }
+
+    if (type === 'pic') {
+        uploadUrl = api.permanent.uploadNewsPic
+
+    }
+
+    if (type === 'news') {
+        uploadUrl = api.permanent.uploadNews
+        form = material
+    }
+    else {
+        form.media = fs.createReadStream(material)
+    }
+
+    return new Promise(function(resolve, reject) {
+        that
+            .fetchAccessToken()
+            .then(function(data) {
+                var url = uploadUrl + 'access_token=' + data.access_token
+
+                if (!permanent) {
+                    url += '&type=' + type
+                }
+                else {
+                    form.access_token = data.access_token
+                }
+                console.log("url",url)
+                var options = {
+                    method: 'POST',
+                    url: url,
+                    json: true
+                }
+
+                if (type === 'news') {
+                    options.body = form
+                }
+                else {
+                    options.formData = form
+                }
+
+                request(options).then(function(response) {
+                    var _data = response.body
+
+                    if (_data) {
+                        resolve(_data)
+                    }
+                    else {
+                        throw new Error('Upload material fails')
+                    }
+                })
+                    .catch(function(err) {
+                        reject(err)
+                    })
+            })
+    })
 }
 
 Wechat.prototype.reply = function () {

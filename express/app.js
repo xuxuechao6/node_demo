@@ -4,17 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var crypto = require('crypto');  //引入加密模版
-var config = require('./config'); //引入配置文件
+
 var index = require('./routes/index');
 var users = require('./routes/users');
-
-var xmlparser = require('express-xml-bodyparser'); //解析微信xml
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+//设置 ejs 为页面模版
+var engines = require('consolidate');
+app.engine('jade', engines.jade);
+app.engine('html', engines.ejs);
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -24,8 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(xmlparser());
 
 app.use('/', index);
 app.use('/users', users);

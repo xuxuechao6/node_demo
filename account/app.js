@@ -1,15 +1,24 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var oauth = require('./routes/oauth');
-var oauthServer = require('./routes/oauthserver');
 
-var app = express();
+const login = require('./routes/login');
+const oauth = require('./routes/oauth');
+const oauthServer = require('./routes/oauthserver');
+
+const app = express();
+
+// 设置跨域访问，方便开发
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*'); //*代表可访问的地址，可以设置指定域名
+    res.header('Access-Control-Allow-Methods:POST,GET');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    next();
+});
 
 
 // view engine setup
@@ -25,12 +34,14 @@ app.use(favicon(path.join(__dirname, '/', 'favicon.ico')));  //设置 图标  '�
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+
 app.use('/oauth', oauth);
-app.use('/oauth2', oauthServer);
+app.use('/', login);
+app.use('/oauth2.0', oauthServer);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

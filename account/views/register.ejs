@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-sc*=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>用户注册</title>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- iconfont 文件 -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/register.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+    <script>
+
+        function checkCode(res){
+            console.log(res)
+            //res（未通过验证）= {ret:1,ticket:null}
+            //res（验证成功） = {ret:0,ticket:"String",randstr:"String"}
+            var _data ={
+                username:document.getElementById("form_username").value,
+                password:document.getElementById("form_password").value,
+                email:document.getElementById("form_email").value,
+                ticket:res.ticket
+            }
+            console.log("_data",_data)
+            if(res.ret == 0){
+                $.ajax({
+                    type: "POST",
+                    url: "/register",
+                    data: _data,
+                    dataType : "json",
+
+                })
+                    .success(function (res) {
+                        if(res.result.status){
+                            window.location.href='/register2';
+                        }else{
+                            window.location.href='/register';
+                        }
+                    })
+                    .error(function (err) {
+                        alert("网络错误")
+                    });
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="head">
+        <div class="mod-header fl">
+            <a href="https://www.rt-thread.org/"><img src="/images/logo_cn.png" alt="logo">
+            <span>注册RT-Thread账号</span>
+            </a>
+        </div>
+        <div class="login-link fr" id="login_link">
+            <span>我已注册，现在就</span>
+             <a  href="/login" class="login-btn"  id="login_btn">登录</a>
+        </div>
+    </div>
+    <div id="nav">
+        <div class="nav-2">
+            <div class="mod-nav clearfix">
+                <h1 class="page-type-notab"></h1>
+            </div>
+        </div>
+    </div>
+    <div class="register-form">
+        <header>
+            <div class="header_title">
+                <div class="header_l">
+                    <span class="header_num"><i class="iconfont icon-1"></i></span> <span class="header_text">填写注册信息</span>
+                </div>
+                <div class="header_m">
+                    <i class="iconfont icon--xiayibu"></i>
+                </div>
+                <div class="header_r">
+                    <span class="header_num"><i class="iconfont icon-2"></i></span> <span class="header_text">邮箱激活</span>
+                </div>
+
+            </div>
+        </header>
+        <section class="row_section">
+            <form id="form" action="/register" method="post" >
+            <div class="row_input" id="userName">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="iconfont icon-denglu"></i></span>
+                    <input type="text" class="form-control" name="userName" id="form_username" placeholder="请输入用户名" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-sign">
+                    <i class="iconfont icon-sign icon-cuowu"></i>
+                    <i class="iconfont icon-sign icon-duigou"></i>
+                </div>
+                <div class="input-info">
+                    <span>设置后无法更改，最长7个汉字或14个英文</span>
+                </div>
+                <p class="err_info"></p>
+            </div>
+            <div class="row_input" id="password">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="iconfont icon-mima"></i></span>
+                    <input type="password" class="form-control"  autocomplete="cc-number" name="password" id="form_password" placeholder="请输入用户密码" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-sign">
+                    <i class="iconfont icon-sign icon-cuowu"></i>
+                    <i class="iconfont icon-sign icon-duigou"></i>
+                </div>
+                <div class="input-info">
+                    <span>6-20位数字或字母或特殊字符</span>
+                </div>
+                <p class="err_info"></p>
+            </div>
+            <div class="row_input" id="password2">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="iconfont icon-mima"></i></span>
+                    <input type="password" class="form-control" autocomplete="cc-number" placeholder="请确认用户密码" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-sign">
+                    <i class="iconfont icon-sign icon-cuowu"></i>
+                    <i class="iconfont icon-sign icon-duigou"></i>
+                </div>
+                <div class="input-info">
+                    <span>6-20位数字或字母或特殊字符</span>
+                </div>
+                <p class="err_info"></p>
+            </div>
+            <div class="row_input" id="email">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="iconfont icon-youxiang"></i></span>
+                    <input type="text" class="form-control" name="email" id="form_email" autocomplete="email" placeholder="请输入邮箱" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-sign">
+                    <i class="iconfont icon-sign icon-cuowu"></i>
+                    <i class="iconfont icon-sign icon-duigou"></i>
+                </div>
+                <div class="input-info">
+                    <span>用于验证身份的邮箱号码，确保可以使用</span>
+                </div>
+                <p class="err_info"></p>
+            </div>
+            <div class="protocol">
+                <label><input class="protocol_book" onclick="checkAgreement()"  type="checkbox"/> <span>阅读并同意</span> </label>
+                <span  class="agreement" data-toggle="modal" data-target="#myModal">《RT-Thread 用户服务协议》</span>
+                <p class="err_info"></p>
+                <input  class="register_btn"  onclick="checkUserInfo()"  type="button" value="立即注册">
+                <button  id="TencentCaptcha" type="button" data-appid="2015160823" data-cbfn="checkCode" style="display: none">立即注册</button>
+            </div>
+            </form>
+    </section>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">用户注册协议</h4>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-center">网站服务协议</h2>
+                <h3 class="text-center">（上海睿赛德电子科技有限公司 ）</h3>
+                <p>
+                    “rt-thread”网站（www.rt-thread.org，以下简称“本网站”）由上海睿赛德电子科技有限公司(以下简称“本公司”)负责运营。本服务协议双方为本网站用户与本公司，适用于用户注册使用本网站服务的全部活动。</p>
+                <p>提示：
+                    在注册成为本网站用户前，请您务必认真、仔细阅读并充分理解本服务协议全部内容。您在注册本网站取得用户身份时勾选同意本服务协议并成功注册为本网站用户，视为您已经充分理解和同意本服务协议全部内容，
+                    并签署了本服务协议，本服务协议立即在您与本公司之间产生合同法律关系，您注册使用本网站服务的全部活动将受到本服务协议的约束并承担相应的责任和义务。如您不同意本服务协议内容，请不要勾选同意本服务协议且注册为本网站用户。</p>
+                <p>本服务协议包括以下所有条款，同时也包括本网站已经发布的或者将来可能发布的各类规则。所有规则均为本服务协议不可分割的一部分，与本服务协议具有同等法律效力。 </p>
+                <p>
+                    用户在此确认知悉并同意本公司有权根据需要不时修改、增加或删减本服务协议。本公司将采用在本网站公示的方式通知用户该等修改、增加或删减，用户有义务注意该等公示。一经本网站公示，即视为已经通知到用户。
+                    若用户在本服务协议及各类规则变更后继续使用本网站服务的，视为用户已仔细认真阅读、充分理解并同意接受修改后的本服务协议及各类规则，且用户承诺遵守修改后的本服务协议及各类规则内容，并承担相应的义务和责任。
+                    若用户不同意修改后的本服务协议及各类规则内容，应立即停止使用本网站服务，本公司保留中止、终止或限制用户继续使用本网站服务的权利，但该等终止、中止或限制行为并不豁免用户在本网站已经进行的交易下所应承担的责任和义务。
+                    本公司不承担任何因此导致的法律责任。</p>
+                <p>一、服务内容 </p>
+                <p>
+                    1、本网站为用户提供【信用咨询、评估、管理，促成用户与本网站其他用户达成交易的居间服务，还款管理等服务】，用户通过本网站居间服务与其他用户达成的所有交易项下资金的存放和移转均通过银行或第三方支付平台机构实现，本网站并不存放交易资金且不保证交易或资金安全。</p>
+                <p>2、本网站作为网络交易平台的撮合角色存在。交易各方的交易内容和风险应由各方自行承担。</p>
+
+                <p>3、本网站通过网站（网址：www.guoer.com）为用户提供本合同约定的服务，该服务及平台系统由本网站独立运营管理。 </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn  btn_agreement"  data-dismiss="modal">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="/javascripts/register.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

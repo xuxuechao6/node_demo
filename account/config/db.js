@@ -1,0 +1,17 @@
+//sql配置文件================
+module.exports={
+    sql1:{
+        host:'localhost',
+        user:'root',
+        password:'',
+        database:'rtt_user_center',
+        port:3306
+    },
+    sql2:{
+        host:'localhost',
+        user:'root',
+        password:'',
+        database:'discuz',
+        port:3306
+    },
+}

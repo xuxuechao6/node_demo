@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-sc*=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>找回密码</title>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- iconfont 文件 -->
+    <link rel="stylesheet" type="text/css" href="/account/stylesheets/iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/account/stylesheets/header.css">
+    <link rel="stylesheet" type="text/css" href="/account/stylesheets/forgetpwd.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+    <script>
+
+        function checkCode(res){
+            console.log(res)
+            //res（未通过验证）= {ret:1,ticket:null}
+            //res（验证成功） = {ret:0,ticket:"String",randstr:"String"}
+            var _data ={
+                email:document.getElementById("form_email").value,
+                ticket:res.ticket
+            }
+            console.log("_data",_data)
+            if(res.ret == 0){
+                $.ajax({
+                    type: "POST",
+                    url: "/account/forgetPwd",
+                    data: _data,
+                    dataType : "json",
+                })
+                    .success(function (res) {
+                        if(res.result.status){
+                            window.location.href='/account/forgetPwd/step2';
+                        }else{
+                            alert("该账号尚未注册")
+                        }
+                    })
+                    .error(function (err) {
+                        alert("网络错误")
+                    });
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="head">
+        <div class="head_nav">
+            <div class="mod-header fl">
+                <a href="https://www.rt-thread.org/"><img src="/account/images/logo_cn.png" alt="logo">
+                </a>
+            </div>
+            <div class="login-link fr" id="login_link">
+                <span>我已注册，现在就</span>
+                <a  href="/account/login" class="login-btn"  id="login_btn">登录</a>
+            </div>
+        </div>
+    </div>
+    <div id="nav">
+        <div class="nav-2">
+            <div class="mod-nav clearfix">
+                <h1 class="page-type-notab"></h1>
+            </div>
+        </div>
+    </div>
+    <div class="register-form">
+        <header>
+            <div class="header_title">
+                <div class="header_l">
+                    <span class="header_num"><i class="iconfont icon-1"></i></span> <span class="header_text">填写用户信息</span>
+                </div>
+                <div class="header_sign">
+                    <i class="iconfont icon--xiayibu"></i>
+                </div>
+                <div class="header_m">
+                    <span class="header_num"><i class="iconfont icon-2"></i></span> <span class="header_text">邮箱验证</span>
+                </div>
+                <div class="header_sign">
+                    <i class="iconfont icon--xiayibu"></i>
+                </div>
+                <div class="header_r">
+                    <span class="header_num"><i class="iconfont icon-3"></i></span> <span class="header_text">修改密码</span>
+                </div>
+            </div>
+        </header>
+        <section class="register-box">
+            <form id="form" action="/account/register" method="post" >
+                <div class="row_section">
+                    <div class="row_input" id="email">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="iconfont icon-youxiang"></i></span>
+                            <input type="text" class="form-control" name="email" id="form_email" autocomplete="email" placeholder="请输入邮箱" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-sign">
+                            <i class="iconfont icon-sign icon-cuowu"></i>
+                            <i class="iconfont icon-sign icon-duigou"></i>
+                        </div>
+                        <p class="err_info"></p>
+                    </div>
+                    <div class="protocol_email">
+                        <input  class="register_btn"  onclick="checkEmailInfo()"  type="button" value="提交申请">
+                        <button  id="TencentCaptcha" type="button" data-appid="2015160823" data-cbfn="checkCode" style="display: none">立即注册</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+<% include ../footer.html %>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+<script>
+    function changeBox(){
+        var H = $(this).height();
+        if(H>588){
+            var h = H -517
+            $(".common_footer").css("margin-top",h+"px")
+        }else{
+            $(".common_footer").css("margin-top","80px")
+        }
+    }
+    window.onload = function() {
+        changeBox();
+    };
+    $(window).resize(function() {
+        changeBox();
+    });
+</script>
+
+<script>
+    var email = $('#email');
+    var isEmail = false;
+    email.find(".form-control").blur(function(){
+        checkEmail()
+    });
+
+    function checkEmail(){
+        var _email= email.find(".form-control").val()
+        var reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+\.){1,63}[a-z0-9]+$/;
+        if(_email === ""){
+            console.log("邮箱为空")
+            email.find(".err_info").text("请输入邮箱号")
+            email.find(".input-sign").children(".icon-duigou").css("display","none")
+            email.find(".input-sign").children(".icon-cuowu").css("display","none")
+            isEmail = false
+        }else if(!reg.test(_email)){
+            console.log("邮箱格式错误")
+            email.find(".err_info").text("请输入正确的邮箱号")
+            email.find(".input-sign").children(".icon-duigou").css("display","none")
+            email.find(".input-sign").children(".icon-cuowu").css("display","block")
+            isEmail = false
+        }else{
+            isEmail = true
+            email.find(".err_info").text("")
+            console.log("邮箱号可以使用")
+            email.find(".input-sign").children(".icon-cuowu").css("display","none")
+            email.find(".input-sign").children(".icon-duigou").css("display","block")
+        }
+    }
+    function checkEmailInfo(){
+        if(!isEmail){
+            checkEmail();
+            email.find(".form-control").focus()
+        }else {
+            $("#TencentCaptcha").click();
+        }
+    }
+
+</script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

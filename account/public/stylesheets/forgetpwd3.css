@@ -1,0 +1,65 @@
+.header_m ,.header_l,.header_r{
+    color: #ffffff;
+    background-color: #17bec4;
+}
+.row_section{
+height: 375px;
+}
+.row_section .err_sms_info{
+    text-align: center;
+    margin-top: 93px;
+    font-size: 28px;
+    color: #ff0000;
+}
+.row_section .input-group{
+    margin-left: 20%;
+}
+.row_section .input-info{
+    width: 40%;
+}
+.row_input .input-sign{
+ left: 56%;
+}
+
+.redirect_url{
+    text-align: center;
+    margin-left: -40px;
+}
+
+
+.protocol_pwd .resetPwd_btn{
+    padding: 10px 140px;
+    background-color: #17bec4;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    display: block;
+    margin-left: 190px;
+    margin-bottom: 20px;
+}
+
+.modal-dialog{
+    width: 300px !important;
+}
+.modal-content{
+    top: 250px;
+}
+.modal-content .modal-body{
+    height: 100px;
+}
+.btn_close{
+    background-color: #17bec4;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.btn_close:hover{
+    background-color: #14a1a6;
+    color: #fff;
+}
+.result_info{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}

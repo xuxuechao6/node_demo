@@ -1,52 +1,183 @@
-.container-fluid{
-    background: #ccc;
-}
-.header_log{
-    text-align: center;
-    margin: 50px 0;
-}
-.header_log span{
-    width: 100px;
-    height: 100px;
-    display: inline-block;
-    border-radius: 100px;
-    background: #fff;
-    opacity: .7;
-}
-.header_log i {
-    text-align: center;
-    display: block;
-    font-size: 55px;
-    color: red;
-    margin: 10px 0px;
+body{
+    background-color: #f7f7f7;
 }
 .fl{
-    display: block;
     float: left;
-    line-height: 30px;
 }
 .fr{
-    display: block;
     float: right;
+}
+/*页面头部*/
+
+#head{
+    width: 100%;
+    height: 75px;
+    line-height: 75px;
+
+    color: #666;
+    background-color:#ffffff;
+}
+.head_nav{
+    width: 960px;
+    height: 75px;
+    margin: 0 auto;
+}
+.mod-header a{
+    color: #666;
+    display: block;
+}
+.mod-header a:hover{
+    text-decoration: none;
+    color: #666;
+}
+.mod-header span{
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 18px;
+    border-left: 1px solid #ccc;
+    height: 30px;
     line-height: 30px;
+    margin-left: 10px;
+    text-indent: 15px;
 }
-.form-control{
-    height: 45px;
+.mod-header img{
+    width: 150px;
 }
-.register{
-    line-height: 30px;
-    text-align: right;
+.mod-nav{
+    margin-left: 230px;
+    height: 75px;
 }
-.register a{
-    color: red;
+.mod-nav ul{
+    height: 75px;
+}
+.mod-nav ul li{
+    list-style-type: none;
+    float: left;
+    width: 80px;
+}
+.mod-nav ul li a {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #17bec4;
+}
+.mod-nav ul li a:hover {
+    color: #14a1a6;
+    text-decoration: none;
+}
+.login-link a{
+    margin-left: 2px;
+    display: inline-block;
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    color: #17bec4;
+    text-align: center;
+    background-color: #f5f5f5;
+    border: 1px solid #17bec4;
+    border-radius: 5px;
+}
+.login-link a:hover{
+    color: #14a1a6;
+    border: 1px solid #14a1a6;
+    text-decoration: none;
 }
 
-.footer_login{
-    text-align: center;
+
+/*表单部分*/
+main{
+    position: relative;
+    margin-top: 110px;
 }
+
+.login_form{
+    width: 960px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+}
+.login_form_l{
+    width: 490px;
+    height: 440px;
+    background-color: #14a1a6;
+}
+.login_form_r{
+    width: 466px;
+    padding: 30px;
+}
+.form_title{
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+.input-group{
+    margin: 5px 0;
+}
+.err_info{
+    margin: 0;
+    padding: 0;
+    height: 25px;
+    color: #ff0000;
+}
+.form_pwd {
+    margin-top: 20px;
+    height: 25px;
+}
+.form_pwd span a{
+    color: #17bec4;
+}
+.form_pwd span a:hover{
+    color: #14a1a6;
+    text-decoration: none;
+}
+.btn_login{
+    width: 100%;
+    background-color: #17bec4;
+    color: #fff;
+    margin-top: 15px;
+}
+.btn_login:hover{
+    background-color: #14a1a6;
+    color: #fff;
+    margin-top: 15px;
+}
+#TencentCaptcha{
+ display: none;
+}
+/*第三方登录*/
+.footer_login_title{
+    position: relative;
+    width: 100%;
+    height: 30px;
+}
+
+.footer_login_title .line{
+    background-color: #666;
+    width: 100%;
+    height: 1px;
+    border: none;
+    position: absolute;
+    top: 11px;
+    z-index: 520;
+}
+.footer_login_title .title{
+    display: block;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    z-index: 521;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    color: #666;
+    background-color: #fff;
+}
+
 .footer_login ul{
     list-style-type: none;
-    margin: 10px 0 50px;
+    text-align: center;
+    padding: 0;
+    margin-top: 5px;
 }
 .footer_login ul li{
     display: inline;

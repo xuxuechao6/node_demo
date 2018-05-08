@@ -1,6 +1,6 @@
-var dbconfig=require('./../config/db').sql1;
-var mysql = require('mysql');
-var pool  = mysql.createPool(dbconfig);
+const dbConfig=require('./../config/db').sql1;
+const mysql = require('mysql');
+const pool  = mysql.createPool(dbConfig);
 db.query = function(sql, callback){
     if (!sql) {
         callback();
@@ -15,5 +15,6 @@ db.query = function(sql, callback){
 
         callback(null, result, fields);
     });
-}
+};
+
 module.exports = db;

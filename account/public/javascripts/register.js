@@ -47,7 +47,7 @@ function checkUserName(){
     }else{
         $.ajax({
             method: "POST",
-            url: "/checkUserName",
+            url: "/account/checkUserName",
             data: { "userName":_userName }
         })
             .success(function( msg ) {
@@ -140,7 +140,7 @@ function checkEmail(){
     }else{
         $.ajax({
             method: "POST",
-            url: "/checkEmail",
+            url: "/account/checkEmail",
             data: { "email":_email }
         })
             .success(function( msg ) {

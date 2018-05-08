@@ -1,0 +1,70 @@
+.header_m ,.header_l,.header_r{
+    color: #ffffff;
+    background-color: #17bec4;
+}
+
+.emaliSend{
+    position: relative;
+    padding-left: 240px
+}
+.icon-duigou{
+    position: absolute;
+    top: 0;
+    left: 140px;
+    font-size: 60px;
+    color: #4dbe5a;
+}
+.icon-cuowu{
+    position: absolute;
+    top: 35px;
+    left: 140px;
+    font-size: 60px;
+    color: #e66b63;
+}
+.emaliSend_info{
+    font-size: 24px;
+    line-height: 30px;
+    color: #000;
+}
+
+.modal-dialog{
+    width: 330px;
+    margin: 225px auto;
+}
+.modal-body h5{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.modal-footer button{
+    background-color: #17bec4;
+    color: #ffffff;
+    border: none;
+}
+.modal-footer button:hover{
+    background-color: #14a1a6;
+    color: #ffffff;
+    border: none;
+}
+.modal-footer{
+    border: none;
+}
+
+.emaliSend_email{
+    font-size: 16px;
+    color: #808080;
+    height: 30px;
+    line-height: 30px;
+}
+.emaliSend_email_err{
+    font-size: 36px;
+    color: #e66b63;
+    height: 143px;
+    line-height: 150px;
+
+}
+#resendwrap p{
+    line-height: 34px;
+    font-size: 12px;
+    margin-bottom: 0;
+}

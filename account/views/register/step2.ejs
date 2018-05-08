@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-sc*=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>用户注册</title>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- iconfont 文件 -->
+    <link rel="stylesheet" type="text/css" href="/account/stylesheets/iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/account/stylesheets/header.css">
+    <link rel="stylesheet" type="text/css" href="/account/stylesheets/register2.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="wrapper">
+    <div id="head">
+        <div class="head_nav">
+            <div class="mod-header fl">
+                <a href="https://www.rt-thread.org/"><img src="/account/images/logo_cn.png" alt="logo">
+                    <span>欢迎注册RT-Thread账号</span>
+                </a>
+            </div>
+            <div class="login-link fr" id="login_link">
+                <span>我已注册，现在就</span>
+                <a  href="/account/login" class="login-btn"  id="login_btn">登录</a>
+            </div>
+        </div>
+    </div>
+    <div id="nav">
+        <div class="nav-2">
+            <div class="mod-nav clearfix">
+                <h1 class="page-type-notab"></h1>
+            </div>
+        </div>
+    </div>
+    <div class="register-form">
+        <header>
+            <div class="header_title">
+                <div class="header_l">
+                    <span class="header_num"><i class="iconfont icon-1"></i></span> <span class="header_text">填写注册信息</span>
+                </div>
+                <div class="header_sign">
+                    <i class="iconfont icon--xiayibu"></i>
+                </div>
+                <div class="header_m">
+                    <span class="header_num"><i class="iconfont icon-2"></i></span> <span class="header_text">邮箱激活</span>
+                </div>
+                <div class="header_sign">
+                    <i class="iconfont icon--xiayibu"></i>
+                </div>
+                <div class="header_r">
+                    <span class="header_num"><i class="iconfont icon-3"></i></span> <span class="header_text">注册成功</span>
+                </div>
+            </div>
+        </header>
+        <section class="register-box">
+                <div class="row_section">
+                    <div class="emaliSend">
+                        <i class="iconfont icon-duigou"></i>
+                        <p id="emaliSend_username" style="display: none"><%= result.username %></p>
+                        <p class="emaliSend_info">请在24小时内点击邮件中的链接继续完成注册</p>
+                        <p class="emaliSend_email">邮件已发送到邮箱 <span class="blue" id="emaliSend_email"><%= result.email %></span>&nbsp;&nbsp;
+                            <!--<a href="javascript:void(0);" class="blue" onclick="$('#modifyEmailId').show();">更改</a>-->
+                        </p>
+                        <!--<div style="display: none" id="modifyEmailId"><br><input type="text" id="emailId" style="width:180px; height:30px;">&nbsp;&nbsp;<input type="button" value="保存" onclick="OnModifySendEmail()" style="height: 30px;">&nbsp;&nbsp;<input type="button" value="取消" onclick="$('#modifyEmailId').hide();" style="height: 30px;"></div>-->
+                        <p><a href="javascript:void(0);" class="blue" onclick="$('#resendwrap').show();">没收到邮件？</a></p>
+                        <div id="resendwrap" style="display:none;background-color:#fefcf3;border:1px solid #de927d;padding:10px;width:200px;padding-left:30px;">
+                            <p>请先检查是否在垃圾邮件中</p>
+                            <p>如果还未收到，<a href="javascript:void(0)" class="blue" onclick="OnRSendEmail()">重新发送邮件</a></p>
+                        </div>
+                    </div>
+
+                </div>
+        </section>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">发送邮件</h4>
+            </div>
+            <div class="modal-body">
+                <h5>重新发送邮件成功！！！</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../footer.html %>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+
+<script>
+    function changeBox(){
+        var H = $(this).height();
+        if(H>550){
+            var h = H -472
+            $(".common_footer").css("margin-top",h+"px")
+        }else{
+            $(".common_footer").css("margin-top","80px")
+        }
+    }
+    window.onload = function() {
+        changeBox();
+    };
+    $(window).resize(function() {
+        changeBox();
+    });
+</script>
+
+<script>
+    function OnRSendEmail() {
+        var _username= $("#emaliSend_username").text()
+        var _email= $("#emaliSend_email").text()
+        console.log(_email)
+        $.ajax({
+            method: "POST",
+            url: "/account/validationEmail",
+            data: { "email":_email ,"username":_username,"type":"register"}
+        })
+            .success(function (msg) {
+                if(msg.result.status){
+                    console.log(msg.result.code)
+                    $('#myModal').modal('toggle')
+                }else{
+                    console.log(msg.result.code)
+                }
+
+            })
+            .error(function (msg) {
+                console.log(msg.result.code)
+            })
+
+    }
+</script>
+
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

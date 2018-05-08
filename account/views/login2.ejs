@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>登录</title>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- iconfont 文件 -->
+    <link rel="stylesheet" type="text/css" href="/account/stylesheets/iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/account/stylesheets/login2.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/account/javascripts/login2.js"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row" style="padding: 0 5%">
+        <div class="header_log">
+            <span>
+                <i class="iconfont icon-shiliangzhinengduixiang"></i>
+            </span>
+
+        </div>
+        <form action="/account/login" method="post" id="userInfo">
+
+            <div class="input-group" style="margin-top: 20px">
+                <span class="input-group-addon" id="basic-addon1" style="background: #fff;border-right: none;"><i class="iconfont icon-denglu"></i></span>
+                <input type="text" name="username" class="form-control username"  id="username" style="border-left: none" placeholder="Username" aria-describedby="basic-addon1">
+            </div>
+            <p class="usernameInfo" id="usernameInfo"  style="height: 35px;line-height: 35px; color: red; margin-bottom: 0;"></p>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1" style="background: #fff;border-right: none;"><i class="iconfont icon-mima"></i></span>
+                <input type="password" name="password" class="form-control password" id="password" style="border-left: none" placeholder="Password" aria-describedby="basic-addon1">
+            </div>
+            <p class="passwordInfo" id="passwordInfo" style="height: 35px;line-height: 35px; color: red; margin-bottom: 0;"></p>
+
+            <div class="">
+                <span class="fr"> <a href="/account/forgetPwd">找回密码？</a></span>
+            </div>
+
+            <button type="button"  onclick="checkUser()" class="btn btn-info" style="width: 100%">登录</button>
+            <button  id="TencentCaptcha" type="button" data-appid="2015160823" data-cbfn="checkCode" style="display: none">登录</button>
+            <div class="register">
+                <span><a href="/account/register">立即注册</a></span>
+            </div>
+        </form>
+        <div class="footer_login">
+            <span></span>
+            <span>第三方登录</span>
+            <span></span>
+            <ul>
+                <li><a href="/account/oauth/pc/qq"><i class="iconfont icon-QQ"></i></a></li>
+                <li class="wx"><a href="/account/oauth/wx"><i class="iconfont icon-wx"></i></a></li>
+                <li><a href=""><i class="iconfont icon-xinlang"></i></a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="/account/javascripts/login.js"></script>
+
+
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

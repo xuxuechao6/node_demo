@@ -1,33 +1,44 @@
-var ClientInfo = require('../../../models/clientinfo').ClientInfo;
+var ClientInfo = require('../../../models/clientinfo');
 
-var db = require('../../../config/db').sql1;
-var mysql = require('mysql');
-var pool = mysql.createPool(db);
-var sql = require('../../../lib/sql');
-var clientInfo = new ClientInfo("qq");
+let info = ""
+
 var request = require('request')
 
-
 function qqRedirect(req,res) {
-    var authorization = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=';
-     var url = authorization + clientInfo.client_id +'&redirect_uri='+clientInfo.redirect_uri+'&state=233&scope=get_user_info,get_vip_info,get_vip_rich_info'
-    console.log(url);
-    // 重定向请求到qq服务器
-    res.redirect(url);
+    ClientInfo.getClientInfo("qq")
+        .then(result => {
+            console.log("result", result)
+            if (result.length > 0) {
+                info = result
+                var authorization = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=';
+                var url = authorization + result[0].client_id +'&redirect_uri='+result[0].redirect_uri+'&state=233&scope=get_user_info'
+                console.log(url);
+                // 重定向请求到qq服务器
+                res.redirect(url);
+            } else {
+
+            }
+        })
+        .catch(err => {
+            console.log("系统错误！！！", err)
+            console.log("errCode", err.responseCode)
+        });
+
+
 }
 
 function qqLogin(req,res) {
-    console.log(clientInfo.client_id)
-    console.log(clientInfo.client_secret)
     //拿到code
     var code = req.query.code;
     //获取token
     console.log(code)
-    var getTokenUrl = 'https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&client_id='+clientInfo.client_id+'&client_secret='+clientInfo.client_secret+'&code='+code+'&redirect_uri='+clientInfo.redirect_uri;
+    var getTokenUrl = 'https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&client_id='+info[0].client_id+'&client_secret='+info[0].client_secret+'&code='+code+'&redirect_uri='+info[0].redirect_uri;
     // res.send(getTokenUrl);
     console.log("getTokenUrl",getTokenUrl)
+    sendUserinfo(req,res,getTokenUrl)
+}
+function sendUserinfo(req,res,getTokenUrl){
     request.get({url:getTokenUrl},function (err, httpResponse, body) {
-
         var str = body;
         var access_token = str.split('=')[1].split('&')[0];
         console.log(1111,access_token)
@@ -42,7 +53,7 @@ function qqLogin(req,res) {
             var qqOpenid = jsonStr['openid'];
             var qqClient_id = jsonStr['client_id'];
             //拿到两个参数以后去获取用户资料
-            request.get({url:'https://graph.qq.com/user/get_user_info?access_token='+ access_token +'&oauth_consumer_key='+ clientInfo.client_id + '&openid=' + qqOpenid}, function (err, httpResponse, body) {
+            request.get({url:'https://graph.qq.com/user/get_user_info?access_token='+ access_token +'&oauth_consumer_key='+ info[0].client_id + '&openid=' + qqOpenid}, function (err, httpResponse, body) {
                 body = JSON.parse(body);
                 console.log(body)
                 res.json({
@@ -55,7 +66,6 @@ function qqLogin(req,res) {
             });
         })
     })
-
 
 }
 //==============================================

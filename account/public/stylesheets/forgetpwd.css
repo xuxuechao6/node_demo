@@ -1,0 +1,97 @@
+.header_l{
+    color: #ffffff;
+    background-color: #17bec4;
+}
+.row_input{
+    margin-bottom: 20px;
+    height: 60px;
+    position: relative;
+}
+.form-control{
+    font-size: 16px;
+    height: 50px;
+}
+.input-group-addon .iconfont {
+    font-size: 26px;
+    color: #555;
+}
+.row_section .input-group{
+    float: left;
+    width: 35%;
+    margin-left: 20%;
+}
+.row_section .input-info{
+    float: left;
+    width: 45%;
+    margin-left: 20px;
+    height: 50px;
+    font-size: 16px;
+    color: #555;
+    line-height: 50px;
+}
+.row_input .err_info{
+    color: #fc4343;
+    position: absolute;
+    top: 57px;
+    left: 20%;
+}
+.row_input .input-sign {
+    position: absolute;
+    height: 50px;
+    line-height: 50px;
+    left: 51%;
+    z-index: 99;
+}
+.row_input .input-sign .icon-sign{
+    font-size: 26px;
+    line-height: 50px;
+}
+.row_input .input-sign .icon-cuowu{
+    color: #fc4343;
+    display: none;
+
+}
+.row_input .input-sign .icon-duigou{
+    color: #00cc00;
+    display: none;
+
+}
+.protocol_email{
+    margin-top: 35px;
+    width: 10%;
+    margin-left: 25%;
+}
+.protocol_email .register_btn{
+    padding: 10px 115px;
+    background-color: #17bec4;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    display: block;
+    margin:  0 auto;
+    margin-bottom: 20px;
+}
+.protocol_email .register_btn:hover{
+    background-color: #14a1a6;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+{
+  "button":[
+    {
+      "type":"view",
+      "name":"登录",
+      "url":"http://dev.xxdemo.cn/login"
+    },
+    {
+      "type":"view",
+      "name":"主页",
+      "url":"http://dev.xxdemo.cn"
+    }]
+}

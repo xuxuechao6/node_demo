@@ -1,0 +1,69 @@
+.container-fluid{
+    background: #ccc;
+}
+.header_log{
+    text-align: center;
+    margin: 50px 0;
+}
+.header_log span{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    border-radius: 100px;
+    background: #fff;
+    opacity: .7;
+}
+.header_log i {
+    text-align: center;
+    display: block;
+    font-size: 55px;
+    color: red;
+    margin: 10px 0px;
+}
+.fl{
+    display: block;
+    float: left;
+    line-height: 30px;
+}
+.fr{
+    display: block;
+    float: right;
+    line-height: 30px;
+}
+.form-control{
+    height: 45px;
+}
+.register{
+    line-height: 30px;
+    text-align: right;
+}
+.register a{
+    color: red;
+}
+
+.footer_login{
+    text-align: center;
+}
+.footer_login ul{
+    list-style-type: none;
+    margin: 10px 0 50px;
+}
+.footer_login ul li{
+    display: inline;
+}
+.footer_login ul li a{
+    text-decoration: none;
+}
+.footer_login ul li i{
+    font-size: 30px;
+    margin-right: 10px;
+}
+.icon-QQ{
+    color:#10a8ff;
+}
+.icon-wx{
+    color:#0c0;
+}
+.icon-xinlang{
+    color: #e6162d;
+}
